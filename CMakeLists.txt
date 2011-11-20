@@ -18,8 +18,8 @@ add_library(rs_vector rs_vector.cpp)
 set(CORELIBS ${CORELIBS} randomInit rs_vector )
 
 
-set(CMAKE_CXX_FLAGS "-O2 -march=native -fomit-frame-pointer -Wall")
-set(PROGRAMS speedMatrix)
+set(CMAKE_CXX_FLAGS "-std=c++0x -O3 -march=native -fomit-frame-pointer -Wall -lboost_thread")
+set(PROGRAMS threading heapsort3)
 foreach(program ${PROGRAMS})
   add_executable(${program} ${program}.cpp)
   target_link_libraries(${program} ${CORELIBS} )

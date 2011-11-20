@@ -12,11 +12,11 @@
 #include"timediff.h"
 
 int main() {
-        heapSort hs1(5);
-        hs1.printArray();
-        hs1.doMergeInPlaceSort();
-        hs1.printArray();
-        return 0;
+//        heapSort hs1(100);
+//        hs1.printArray();
+//        hs1.doMergeInPlaceSort();
+//        hs1.printArray();
+//        return 0;
     struct timeval t_start,t_end;
     const unsigned int imin=(1<<20);
     const unsigned int imax=(1<<27);
@@ -31,6 +31,19 @@ int main() {
         double t= ( t_end - t_start);
         std::cout<<"speed= "<<i/t<<" normalized speed="<<i*log2(double(i))/t<<std::endl;
     }
+
+    std::cout<<"\n mergesort in-place \n";
+    for(unsigned int i=imin;i<imax;i <<= 1){
+
+        heapSort hs0(i);
+        gettimeofday(&t_start,NULL);
+        hs0.doMergeInPlaceSort();
+        gettimeofday(&t_end,NULL);
+        hs0.print();
+        double t= ( t_end - t_start);
+        std::cout<<"speed= "<<i/t<<" normalized speed="<<i*log2(double(i))/t<<std::endl;
+    }
+
     std::cout<<"\nstandard heap sort\n";
     for(unsigned int i=imin;i<imax;i <<= 1){
 
