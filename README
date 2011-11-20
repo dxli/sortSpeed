@@ -1,0 +1,14 @@
+Speed of classic sorting algorithms
+
+algorithms included:
+
+quicksort, merge sort, in-place merge sort, and heapsort
+
+To build:
+
+qmake local.pro
+make
+
+To run:
+
+./heapspeed
