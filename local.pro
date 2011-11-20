@@ -18,16 +18,20 @@ QMAKE_CXXFLAGS_DEBUG += -std=c++0x -O0 -g -march=native
 QMAKE_CXXFLAGS += -std=c++0x -O3 -march=native -fomit-frame-pointer
 
 SOURCES += src/heapspeed.cpp \
-    src/heapsort.cpp
+    src/heapsort.cpp \
+    src/actionFactory.cpp
 SOURCES += randomInit.cpp
 
 HEADERS += src/randomInit.h \
     src/heapsort.h \
-    src/timediff.h
+    src/timediff.h \
+    src/actionFactory.h
 
-INCLUDEPATH += 
+INCLUDEPATH +=
 
-LIBS += 
+LIBS +=
+
+
 
 
 

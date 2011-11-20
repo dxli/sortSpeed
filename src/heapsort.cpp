@@ -52,8 +52,9 @@ void heapSort::resize(unsigned int n){
 }
 
 void heapSort::init(){
-    totalComparison	=0;
+    totalComparison=0;
     totalMovement =0;
+    randomnize();
 }
 
 void heapSort::randomnize(){
@@ -206,23 +207,23 @@ void heapSort::doMergeInPlaceSort(unsigned int low,unsigned int length){
     unsigned int length0= length>>1;
     unsigned int middle0= low + length-length0;
     unsigned int length1= (middle0 - low)>>1;
-//    unsigned int middle1=low + length1-1;//inclusive for P1
-//    std::cout<<"heapSort::doMergeInPlaceSort("<<low<<","<<length<<"): low="<<low<<" length1="<<length1<<" middle0="<<middle0<<" length0="<<length0<<std::endl;
+    //    unsigned int middle1=low + length1-1;//inclusive for P1
+    //    std::cout<<"heapSort::doMergeInPlaceSort("<<low<<","<<length<<"): low="<<low<<" length1="<<length1<<" middle0="<<middle0<<" length0="<<length0<<std::endl;
     doMergeInPlaceSort(middle0,length0);
-//    printArray();
+    //    printArray();
     while(length1>=1){
         doMergeInPlaceSort(low,length1);
         mergeInPlace(low,length1,middle0,length0);
         middle0 -= length1;
         length0 += length1;
         length1 = ((middle0-low)>>1) ;
-//    printArray();
+        //    printArray();
     }
-//    std::cout<<"heapSort::doMergeInPlaceSort("<<low<<","<<length<<")(1): low="<<low<<" length1="<<length1<<" middle0="<<middle0<<" length0="<<length0<<std::endl;
+    //    std::cout<<"heapSort::doMergeInPlaceSort("<<low<<","<<length<<")(1): low="<<low<<" length1="<<length1<<" middle0="<<middle0<<" length0="<<length0<<std::endl;
     if(middle0 - low == 1)  {
         mergeSingle(low,length0);
     }
-//    printArray();
+    //    printArray();
 }
 
 //only one un
@@ -233,7 +234,7 @@ void heapSort::mergeSingle(unsigned int low,unsigned int length) {
     while(j<=last){
         totalComparison++;
         if(array[i]<=array[j]) break;
-         totalMovement ++;
+        totalMovement ++;
         std::swap(array[i],array[j]);
         i++;
         j++;
@@ -243,14 +244,14 @@ void heapSort::mergeSingle(unsigned int low,unsigned int length) {
 //in-place merge
 void heapSort::mergeInPlace(unsigned int iP1, unsigned int lengthP1,unsigned int iQ,unsigned int lengthQ)
 {
-//    std::cout<<"heapSort::mergeInPlace("<<iP1<<" , "<<lengthP1<<" , "<<iQ<<" , "<<lengthQ<<")"<<std::endl;
+    //    std::cout<<"heapSort::mergeInPlace("<<iP1<<" , "<<lengthP1<<" , "<<iQ<<" , "<<lengthQ<<")"<<std::endl;
     //check for sanity, work space must be able to hold P1
-//    std::cout<<"heapSort::mergeInPlace()\n";
-//    printArray();
-//    if(iP1 + (lengthP1<<1) >iQ ){
-//        std::cout<<"heapSort::mergeInPlace():work space must be able to hold P1\n";
-//        exit(0);
-//    }
+    //    std::cout<<"heapSort::mergeInPlace()\n";
+    //    printArray();
+    //    if(iP1 + (lengthP1<<1) >iQ ){
+    //        std::cout<<"heapSort::mergeInPlace():work space must be able to hold P1\n";
+    //        exit(0);
+    //    }
     unsigned int low1=iP1;
     unsigned int high1=iP1+lengthP1;
     unsigned int low2=iQ;
@@ -269,16 +270,16 @@ void heapSort::mergeInPlace(unsigned int iP1, unsigned int lengthP1,unsigned int
             target++;
             low2++;
         }
-         totalMovement ++;
+        totalMovement ++;
     }
     if(low1<high1){
         for(unsigned int i=low1;i<high1;i++){
             std::swap(array[target],array[i]);
             target++;
-         totalMovement ++;
+            totalMovement ++;
         }
     }
-//   printArray();
+    //   printArray();
 
 }
 
