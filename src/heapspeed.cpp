@@ -47,7 +47,7 @@ int main() {
     };
     for(auto it =aTypes.begin();it!=aTypes.end();it++){
         af.setType(*it);
-        af.run(100);
+        af.run(400);
     }
 
     return 0;
