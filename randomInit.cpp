@@ -6,6 +6,9 @@
 using namespace std;
 void randomInit(char * random_buf)
 {
+    static bool randomReady=false;
+    if(randomReady) return;
+    randomReady=true;
     string sr("/dev/urandom");
     struct timeval t_start;
     gettimeofday(&t_start,NULL);

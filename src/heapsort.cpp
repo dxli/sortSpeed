@@ -34,6 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "heapsort.h"
 #include "randomInit.h"
 
+std::uniform_int_distribution<unsigned int> heapSort::distribution(0, RAND_MAX);
+std::mt19937 heapSort::engine; // Mersenne twister MT19937
+std::function<unsigned int()> heapSort::generator = std::bind(distribution, engine);
 //heapSort::heapSort()
 //{
 //    array.clear();
@@ -41,37 +44,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //    init();
 //}
 heapSort::heapSort(unsigned int n){
-    initializeRandom();
+//    initializeRandom();
     resize(n);
     randomnize();
     init();
 }
-
 //void heapSort::setArrary(const <unsigned int>& a){
 //    array=a;
 //}
-void heapSort::initializeRandom(){
-    static bool randomReady(false);
-    if(randomReady) return;
-    std::string sr("/dev/urandom");
-    struct timeval t_start;
-    gettimeofday(&t_start,NULL);
-    std::ifstream in1(sr.c_str());
-    static char random_buf[257];
-    if (! in1.is_open())
-    {
-        std::cerr<<"Can not open" <<sr<<std::endl;
-        srandom(t_start.tv_usec);
-    }
-    else
-    {
-        in1.read(random_buf,256*sizeof(char));
-        in1.close();
-        initstate(t_start.tv_usec,random_buf,256);
-        setstate(random_buf);
-    }
-    randomReady=true;
-}
+//void heapSort::initializeRandom(){
+////    static std::uniform_int_distribution<int> distribution(0, RAND_MAX);
+////    static std::mt19937 engine; // Mersenne twister MT19937
+////    static auto generator = std::bind(distribution, engine);
+////    int random = generator();  // Generate a uniform integral variate between 0 and 99.
+////    int random2 = distribution(engine); // Generate another sample directly using the distribution and the engine objects.
+
+//}
 
 void heapSort::resize(unsigned int n){
     array.resize(n);
@@ -84,9 +72,8 @@ void heapSort::init(){
 }
 
 void heapSort::randomnize(){
-    double dmax(array.size());
     for(auto it=array.begin(); it != array.end(); it++) {
-        *it = static_cast<unsigned int>( (dmax*random()/(double(1.0)+RAND_MAX)));
+        *it = generator();
     }
 }
 

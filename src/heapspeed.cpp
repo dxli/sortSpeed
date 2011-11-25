@@ -32,8 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 
 #include"actionFactory.h"
+#include"linkedlist.h"
 
 int main() {
+    linkedList ls(100);
+    ls.randomnize();
+    std::cout<<ls<<std::endl;
+    ls.mergeSort();
+    std::cout<<ls<<std::endl;
+    exit(0);
 //    heapSort hs0(10);
 //    hs0.doQuickSort();
 //    hs0.printArray();
@@ -47,7 +54,7 @@ int main() {
     };
     for(auto it =aTypes.begin();it!=aTypes.end();it++){
         af.setType(*it);
-        af.run(400);
+        af.run(20);
     }
 
     return 0;

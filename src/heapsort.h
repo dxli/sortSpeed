@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef HEAPSORT_H
 #define HEAPSORT_H
 #include<vector>
+#include<cstdlib>
+#include<random>
+#include<functional>
 
 class heapSort
 {
@@ -34,7 +37,7 @@ public:
     //    heapSort();
     heapSort(unsigned int n);
     //    void setArrary(const <unsigned int>& a);
-    void initializeRandom();
+//    void initializeRandom();
     void init();
     void resize(unsigned int n);
     void randomnize();
@@ -51,9 +54,13 @@ public:
     void print();
     long int getTotalComparison();
     long int getTotalMovement();
+    static std::uniform_int_distribution<unsigned int> distribution;
+    static std::mt19937 engine; // Mersenne twister MT19937
+    static std::function<unsigned int()> generator;
 
 private:
     bool randomInitialized;
+
     long int totalComparison;
     long int totalMovement;
     std::vector<unsigned int> array;
