@@ -54,6 +54,7 @@ actionFactory::actionFactory(SortType aType){
     setType(aType);
 }
 void actionFactory::setType(SortType aType){
+    this->aType=aType;
     switch(aType){
     case MergeSort:
         std::cout<<"Standard MergeSort\n";
@@ -71,43 +72,77 @@ void actionFactory::setType(SortType aType){
         std::cout<<"Standard QuickSort\n";
         fp= & heapSort::doQuickSort;
         break;
+    case LinkedListMergeSort:
+        std::cout<<"LinkedList MergeSort\n";
+        fpList= & linkedList::mergeSort;
+        break;
     default:
         std::cout<<"Unknown algorithm type, exit...\n";
         exit(0);
     }
-
-    this->aType=aType;
 }
 
 void actionFactory::run(unsigned int repeat){
-    heapSort hs0(1);
     statistics normalizedSpeed;
     statistics comparison;
     statistics movement;
     struct timeval t_start,t_end;
+    if(aType==LinkedListMergeSort){
+        //linked list
+        linkedList ll0(1);
 
-    unsigned int n=(1<<nmin);
-    for(unsigned int j=nmin;j<=nmax;j++){
-            hs0.resize(n);
-        for(unsigned int i=0;i<repeat;i++){
-            hs0.init();
-            gettimeofday(&t_start,NULL);
-            (hs0.*fp)();//sorting process
-            gettimeofday(&t_end,NULL);
-            double t=t_end - t_start;
-            double complexity=n*log2(n);
-            normalizedSpeed.add(complexity/t);
-            comparison.add(hs0.getTotalComparison()/complexity);
-            movement.add(hs0.getTotalMovement()/complexity);
+        unsigned int n=(1<<nmin);
+        for(unsigned int j=nmin;j<=nmax;j++){
+            ll0.resize(n);
+            for(unsigned int i=0;i<repeat;i++){
+                ll0.init();
+                gettimeofday(&t_start,NULL);
+                (ll0.*fpList)();//sorting process
+                if(ll0.inOrder() == false) {
+                    std::cout<<"sorting failed\n";
+                }
+                gettimeofday(&t_end,NULL);
+                double t=t_end - t_start;
+                double complexity=n*log2(n);
+                normalizedSpeed.add(complexity/t);
+                comparison.add(ll0.getTotalComparison()/complexity);
+                //                movement.add(hs0.getTotalMovement()/complexity);
+            }
+            std::cout<<"2^"<<j;
+            normalizedSpeed.print();
+            comparison.print();
+            //        movement.print();
+            std::cout<<std::endl;
+            n<<=1;
         }
-    std::cout<<"2^"<<j;
-    normalizedSpeed.print();
-    comparison.print();
-    movement.print();
-    std::cout<<std::endl;
-        n<<=1;
+        std::cout<<std::endl;
+    }else{
+        //array
+        heapSort hs0(1);
+
+        unsigned int n=(1<<nmin);
+        for(unsigned int j=nmin;j<=nmax;j++){
+            hs0.resize(n);
+            for(unsigned int i=0;i<repeat;i++){
+                hs0.init();
+                gettimeofday(&t_start,NULL);
+                (hs0.*fp)();//sorting process
+                gettimeofday(&t_end,NULL);
+                double t=t_end - t_start;
+                double complexity=n*log2(n);
+                normalizedSpeed.add(complexity/t);
+                comparison.add(hs0.getTotalComparison()/complexity);
+                movement.add(hs0.getTotalMovement()/complexity);
+            }
+            std::cout<<"2^"<<j;
+            normalizedSpeed.print();
+            comparison.print();
+            movement.print();
+            std::cout<<std::endl;
+            n<<=1;
+        }
+        std::cout<<std::endl;
     }
-    std::cout<<std::endl;
 
 }
 

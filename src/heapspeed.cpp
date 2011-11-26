@@ -35,18 +35,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include"linkedlist.h"
 
 int main() {
-    linkedList ls(100);
-    ls.randomnize();
-    std::cout<<ls<<std::endl;
-    ls.mergeSort();
-    std::cout<<ls<<std::endl;
-    exit(0);
+//    linkedList ls(100);
+//    ls.randomnize();
+//    std::cout<<ls<<std::endl;
+//    ls.mergeSort();
+//    std::cout<<ls<<std::endl;
+//    exit(0);
 //    heapSort hs0(10);
 //    hs0.doQuickSort();
 //    hs0.printArray();
 //    exit(0);
-    actionFactory af(actionFactory::MergeSort);
+    actionFactory af;
     std::vector<actionFactory::SortType> aTypes={
+        actionFactory::LinkedListMergeSort,
         actionFactory::MergeSort,
         actionFactory::InPlaceMergeSort,
         actionFactory::HeapSort,
@@ -54,7 +55,7 @@ int main() {
     };
     for(auto it =aTypes.begin();it!=aTypes.end();it++){
         af.setType(*it);
-        af.run(20);
+        af.run(10);
     }
 
     return 0;

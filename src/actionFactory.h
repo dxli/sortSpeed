@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef HEAPSPEED_H
 #define HEAPSPEED_H
 #include "heapsort.h"
+#include "linkedlist.h"
 #define nmin 20
 #define nmax 25
 
@@ -46,14 +47,17 @@ class actionFactory {
         MergeSort,
         InPlaceMergeSort,
         HeapSort,
-        QuickSort
+        QuickSort,
+        LinkedListMergeSort
     };
+    actionFactory() = default ;
     actionFactory(SortType aType);
     void setType(SortType aType);
     void run(unsigned int repeat = 10);
     private:
     SortType aType;
     void (heapSort::*fp)();
+    void (linkedList::*fpList)();
 };
 
 #endif
