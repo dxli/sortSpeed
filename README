@@ -2,7 +2,8 @@ Speed of classic sorting algorithms
 
 algorithms included:
 
-quicksort, merge sort, in-place merge sort, and heapsort
+quicksort, merge sort, in-place merge sort, and heapsort for array
+merge sort for linked list
 
 To build:
 
